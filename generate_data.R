@@ -96,7 +96,7 @@ run_analysis <- function(data){
 
 results_all <- list()
 # for (i in 1:200){
-for (i in 2){
+for (i in 4:7){
   set.seed(i)
   data <- generate_data(100)
   
@@ -115,5 +115,5 @@ for (i in 2){
 
 
 # names(results) <- c("AA_estimate", "AA_low", "AA_high", "A0_estimate", "A0_low", "A0_high", "A1_estimate", "A1_low", "A1_high")
-results_all <- results_all[2:3]
-write.csv(results_all, "/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/intermediate-results/seeds_2_3.csv", row.names = F)
+results_all <- results_all[4:7]
+saveRDS(results_all, "/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/intermediate-results/seeds_4_7.rds")
