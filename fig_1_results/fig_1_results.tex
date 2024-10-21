@@ -1,0 +1,257 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={results},
+  pdfauthor={Anton Hung},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{results}
+\author{Anton Hung}
+\date{2024-10-07}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\section{Function for generating
+data}\label{function-for-generating-data}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{generate\_data }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(n) \{}
+\NormalTok{  W1 }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{  W2\_4 }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{rbinom}\NormalTok{(n }\SpecialCharTok{*} \DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{)}
+  \FunctionTok{colnames}\NormalTok{(W2\_4) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"W"}\NormalTok{, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)}
+\NormalTok{  W }\OtherTok{\textless{}{-}} \FunctionTok{cbind}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{W1 =}\NormalTok{ W1), W2\_4)}
+\NormalTok{  A }\OtherTok{\textless{}{-}} \FunctionTok{g}\NormalTok{(W)}
+  \CommentTok{\# A \textless{}{-} sample(c(0, 1), size = n, replace = TRUE)}
+\NormalTok{  Y }\OtherTok{\textless{}{-}} \FunctionTok{Q}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(W,A))}
+  \FunctionTok{cbind}\NormalTok{(W, }\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{A =}\NormalTok{ A), }\FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Y =}\NormalTok{ Y))}
+\NormalTok{\}}
+
+\NormalTok{g }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(W) \{}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(W, }\FunctionTok{plogis}\NormalTok{(W1 }\SpecialCharTok{+}\NormalTok{ W2}\SpecialCharTok{*}\NormalTok{W3 }\SpecialCharTok{{-}} \DecValTok{2}\SpecialCharTok{*}\NormalTok{W4))}
+  \FunctionTok{rbinom}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(W), }\DecValTok{1}\NormalTok{, p)}
+\NormalTok{\}}
+
+\NormalTok{Q }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(W\_A) \{}
+  \CommentTok{\# expit(W1 + W2xW3 + W4xA {-} 3)}
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(W\_A, }\FunctionTok{plogis}\NormalTok{(W1 }\SpecialCharTok{+}\NormalTok{ W2}\SpecialCharTok{*}\NormalTok{W3 }\SpecialCharTok{{-}} \DecValTok{3}\NormalTok{))}
+  \FunctionTok{rbinom}\NormalTok{(}\FunctionTok{nrow}\NormalTok{(W\_A), }\DecValTok{1}\NormalTok{, p)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\subsubsection{Comparison of Y1 vs Y0}\label{comparison-of-y1-vs-y0}
+
+For each of the 1000 datasets, we can compute the sample Y1 and sample
+Y0. If the ATE was truly 0, the we should see an approximately 50:50
+ratio for which one is larger between Y1 and Y0.
+
+Instead, we see and approximately 85:15 ratio in favour of Y1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{result }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{) \{}
+  \FunctionTok{set.seed}\NormalTok{(i)}
+\NormalTok{  data }\OtherTok{\textless{}{-}} \FunctionTok{generate\_data}\NormalTok{(}\DecValTok{200}\NormalTok{)}
+\NormalTok{  result[i] }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(data[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{A}\SpecialCharTok{==}\DecValTok{0}\NormalTok{),}\StringTok{"Y"}\NormalTok{]) }\SpecialCharTok{\textgreater{}} \FunctionTok{mean}\NormalTok{(data[}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{A}\SpecialCharTok{==}\DecValTok{1}\NormalTok{),}\StringTok{"Y"}\NormalTok{])}
+\NormalTok{\}}
+\FunctionTok{table}\NormalTok{(result)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## result
+##   0   1 
+## 859 141
+\end{verbatim}
+
+\subsection{Used TML3 to generate estimates
+\ldots{}}\label{used-tml3-to-generate-estimates}
+
+\section{Recreating Figure 1 from the
+paper}\label{recreating-figure-1-from-the-paper}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}\FunctionTok{readRDS}\NormalTok{(}\StringTok{"/Users/anton/Library/CloudStorage/OneDrive{-}ColumbiaUniversityIrvingMedicalCenter/Q3\_2024/random{-}seed{-}effects/fig\_1\_results/seeds{-}1{-}1000\_sensitivity.rds"}\NormalTok{))}
+
+\NormalTok{results }\OtherTok{\textless{}{-}}\NormalTok{ results }\SpecialCharTok{|\textgreater{}} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{ATE =}\NormalTok{ A1\_estimate }\SpecialCharTok{{-}}\NormalTok{ A0\_estimate,}
+         \AttributeTok{ATE\_low =}\NormalTok{ ATE }\SpecialCharTok{{-}} \FloatTok{1.96}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(A0\_se}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ A1\_se}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
+         \AttributeTok{ATE\_high =}\NormalTok{ ATE }\SpecialCharTok{+} \FloatTok{1.96}\SpecialCharTok{*}\FunctionTok{sqrt}\NormalTok{(A0\_se}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ A1\_se}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{),}
+         \AttributeTok{CI\_width =}\NormalTok{ ATE\_high}\SpecialCharTok{{-}}\NormalTok{ATE\_low)}
+
+\NormalTok{results }\OtherTok{\textless{}{-}}\NormalTok{ results }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{arrange}\NormalTok{(ATE\_low) }\SpecialCharTok{|\textgreater{}}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{rank =} \FunctionTok{row\_number}\NormalTok{())}
+
+\FunctionTok{ggplot}\NormalTok{(results, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rank, }\AttributeTok{y =}\NormalTok{ ATE)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ ATE\_low, }\AttributeTok{ymax =}\NormalTok{ ATE\_high, }\AttributeTok{color=}\NormalTok{ATE\_low}\SpecialCharTok{\textless{}}\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+  \FunctionTok{ylim}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{fig_1_results_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(results, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ rank, }\AttributeTok{y =}\NormalTok{ ATE)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ ATE\_low, }\AttributeTok{ymax =}\NormalTok{ ATE\_high, }\AttributeTok{color=}\NormalTok{ATE\_low}\SpecialCharTok{\textless{}}\DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+  \CommentTok{\# ylim({-}0.5, 0.5) +}
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{fig_1_results_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\subsection{How many ATE values are above
+0?}\label{how-many-ate-values-are-above-0}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(results}\SpecialCharTok{$}\NormalTok{ATE }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## FALSE  TRUE 
+##   404   596
+\end{verbatim}
+
+\end{document}

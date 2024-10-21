@@ -25,7 +25,11 @@ Q <- function(W_A) {
   rbinom(nrow(W_A), 1, p)
 }
 
-# test_100 <- generate_data(100)
+test_100 <- generate_data(100)
+
+mean(test_100[which(test_100$A==0),"Y"])
+mean(test_100[which(test_100$A==1),"Y"])
+
 
 # head(test_data)
 
@@ -104,8 +108,10 @@ for (i in 4:7){
   # results <- data.frame(matrix(ncol = 9, nrow = 5))
   tic()
   for (j in 1:150){
+    # for (k in 1:80) ???
     set.seed(j)
     results[j, ] <- c(i,run_analysis(data))
+    # }
   }
   toc()
   names(results) <- c("dataset", "AA_estimate", "A0_estimate", "A1_estimate", "AA_se", "A0_se", "A1_se")

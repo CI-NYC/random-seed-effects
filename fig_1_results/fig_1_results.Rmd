@@ -1,0 +1,114 @@
+---
+title: "results"
+author: "Anton Hung"
+date: "2024-10-07"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+
+# Function for generating data
+
+```{r}
+generate_data <- function(n) {
+  W1 <- runif(n, 0, 2)
+  W2_4 <- matrix(rbinom(n * 3, 1, 0.5), ncol = 3)
+  colnames(W2_4) <- paste0("W", 2:4)
+  W <- cbind(data.frame(W1 = W1), W2_4)
+  A <- g(W)
+  # A <- sample(c(0, 1), size = n, replace = TRUE)
+  Y <- Q(cbind(W,A))
+  cbind(W, data.frame(A = A), data.frame(Y = Y))
+}
+
+g <- function(W) {
+  p <- with(W, plogis(W1 + W2*W3 - 2*W4))
+  rbinom(nrow(W), 1, p)
+}
+
+Q <- function(W_A) {
+  # expit(W1 + W2xW3 + W4xA - 3)
+  p <- with(W_A, plogis(W1 + W2*W3 - 3))
+  rbinom(nrow(W_A), 1, p)
+}
+```
+
+### Comparison of Y1 vs Y0
+
+For each of the 1000 datasets, we can compute the sample mean Y1 and sample mean Y0. If the ATE was truly 0, then we should see an approximately 50:50 ratio for which one is larger between Y1 and Y0. 
+
+Instead, we see and approximately 85:15 ratio in favour of Y1.
+
+```{r}
+result <- numeric(1000)
+for (i in 1:1000) {
+  set.seed(i)
+  data <- generate_data(200)
+  result[i] <- mean(data[which(data$A==0),"Y"]) > mean(data[which(data$A==1),"Y"])
+}
+table(result)
+```
+
+#### Used TML3 to generate estimates ...
+
+
+# Recreating Figure 1 from the paper
+
+```{r}
+results <- rbind(readRDS("/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds-1-1000_sensitivity.rds"))
+
+results <- results |> 
+  mutate(ATE = A1_estimate - A0_estimate,
+         ATE_low = ATE - 1.96*sqrt(A0_se^2 + A1_se^2),
+         ATE_high = ATE + 1.96*sqrt(A0_se^2 + A1_se^2),
+         CI_width = ATE_high-ATE_low)
+
+results <- results |>
+  arrange(ATE_low) |>
+  mutate(rank = row_number())
+
+ggplot(results, aes(x = rank, y = ATE)) +
+  geom_errorbar(aes(ymin = ATE_low, ymax = ATE_high, color=ATE_low<0)) +
+  geom_point() + 
+  ylim(-0.5, 0.5) +
+  geom_hline(yintercept = 0, linetype = "dashed")
+```
+
+### Some CIs are extremely wide...
+
+```{r}
+ggplot(results, aes(x = rank, y = ATE)) +
+  geom_errorbar(aes(ymin = ATE_low, ymax = ATE_high, color=ATE_low<0)) +
+  geom_point() + 
+  # ylim(-0.5, 0.5) +
+  geom_hline(yintercept = 0, linetype = "dashed")
+```
+
+### Proportion of Confidence Intervals that do not overlap with 0
+
+1.1%, and all non-overlapping CIs lie above 0.
+
+```{r}
+table(results$ATE_low > 0)
+table(results$ATE_high < 0)
+```
+
+
+### How many ATE values are above 0?
+
+60:40 ratio? Not 50:50 as would be expected under the null, or even 85:15 as we saw when comparing the true sample means.
+
+```{r}
+table(results$ATE > 0)
+```
+
