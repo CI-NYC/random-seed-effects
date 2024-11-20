@@ -11,12 +11,13 @@ generate_data <- function(n) {
   W <- cbind(data.frame(W1 = W1), W2_4)
   A <- g(W)
   # A <- sample(c(0, 1), size = n, replace = TRUE)
-  # Y <- Q(cbind(W,A))
-  Y_0 <- Q(cbind(W,0))
-  Y_1 <- Q(cbind(W,1))
-  Y <- A*Y_1 + (1-A)*Y_0
+  Y <- Q(cbind(W,A))
+  # Y_0 <- Q(cbind(W,0))
+  # Y_1 <- Q(cbind(W,1))
+  # Y <- A*Y_1 + (1-A)*Y_0
   
-  cbind(W, data.frame(A = A), data.frame(Y = Y), data.frame(Y_0 = Y_0), data.frame(Y_1 = Y_1))
+  cbind(W, data.frame(A = A), data.frame(Y = Y))#, 
+        #data.frame(Y_0 = Y_0), data.frame(Y_1 = Y_1))
 }
 
 g <- function(W) {
@@ -45,7 +46,7 @@ run_analysis <- function(data){
     outcome = "Y",
     covar = c("W1","W2","W3","W4"),
     outcome_type="binomial",
-    folds=20,
+    folds=40,
     learners_trt = c("glm","ranger","earth"),
     learners_outcome = c("glm","ranger","earth")
   )
@@ -80,7 +81,7 @@ for (i in 1:100){
 
 
 names(results) <- c("dataset", "AA_estimate", "A0_estimate", "A1_estimate", "AA_se", "A0_se", "A1_se")
-saveRDS(results, "/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds_45_20folds.rds")
+saveRDS(results, "/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds_45_40folds.rds")
 
 
 # 1 single initial seed for the data

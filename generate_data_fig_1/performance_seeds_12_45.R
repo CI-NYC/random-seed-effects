@@ -27,7 +27,7 @@ p_2_45 <- ggplot(results_2_45, aes(x = rank, y = ATE)) +
 
 
 
-results_40 <- rbind(readRDS("/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds_45.rds"))
+results_40 <- rbind(readRDS("/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds_45_40folds.rds"))
 
 results_40 <- results_40 |> 
   mutate(ATE = A1_estimate - A0_estimate,
@@ -41,7 +41,7 @@ results_40_45 <- results_40 |>
   mutate(rank = row_number())
 
 p_40_45 <- ggplot(results_40_45, aes(x = rank, y = ATE)) +
-  geom_errorbar(aes(ymin = ATE_low, ymax = ATE_high, color=ATE_high<0 | ATE_low>0)) +
+  geom_errorbar(aes(ymin = ATE_low, ymax = ATE_high), color="#00BFC4") +
   geom_point() + 
   ylim(-0.2, 0.4) +
   ggtitle("Cross-fit folds: 40") +
@@ -62,7 +62,7 @@ p_40_45 <- ggplot(results_40_45, aes(x = rank, y = ATE)) +
 #   theme(legend.position = "none")
 
 
-results_20 <- rbind(readRDS("/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds_45_20folds.rds"))
+results_20 <- rbind(readRDS("/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds_12_45.rds"))
 
 results_20 <- results_20 |> 
   mutate(ATE = A1_estimate - A0_estimate,
