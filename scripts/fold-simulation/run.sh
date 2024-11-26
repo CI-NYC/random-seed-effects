@@ -2,12 +2,12 @@
 #SBATCH --account=msph
 #SBATCH --job-name=SchaderReplication
 #SBATCH --mem=5G
-#SBATCH --time=1:00:00
+#SBATCH --time=2:00:00
 #SBATCH --array=1-200
 
-cvfold=2
+cvfold=$1
 
-Rscript revised_sim_20230602.R $cvfold 
+Rscript main.R $cvfold 
 
 exit 0
 

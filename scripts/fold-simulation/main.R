@@ -32,4 +32,4 @@ results <- lapply(1:K, function(k){
   )
 })
 
-saveRDS(results, "schader_{cv_folds}_{id}.rds")
+saveRDS(results, glue("results/raw/schader_{cv_folds}_{id}.rds"))
