@@ -500,6 +500,98 @@ for (i in index_vector) {
               gn[[j]] <- list(gn_0[j, ], gn_1[j, ])
               
               
+        }else-if(cv_folds == 40){
+          # Modify the cross-validation folds
+          cv_folds <- 40
+          
+          if(cv_folds == 40){
+            df_full <- data.frame(A=A, W, Y, id=c(1:n))
+            Y0_indices <- c(1:length(df_full$Y))[df_full$Y == 0]
+            Y1_indices <- c(1:length(df_full$Y))[df_full$Y == 1]
+            
+            # Split the sample into 40 folds
+            folds <- createFolds(df_full$Y, k = 40, list = TRUE, returnTrain = TRUE)
+            
+            Qn_0 <- matrix(NA, nrow = cv_folds, ncol = n)
+            Qn_1 <- matrix(NA, nrow = cv_folds, ncol = n)
+            gn_0 <- matrix(NA, nrow = cv_folds, ncol = n)
+            gn_1 <- matrix(NA, nrow = cv_folds, ncol = n)
+            
+            Qn_list <- list()
+            gn_list <- list()
+            
+            for(j in 1:cv_folds){
+              indices_train <- folds[[j]]
+              df_train <- df_full[indices_train, ]
+              df_test <- df_full[-indices_train, ]
+              
+              # Train the outcome regression on the training set
+              if(length(or_library) == 1){
+                sl_Q_train <- do.call(or_library, 
+                                      c(list(Y = df_train$Y, 
+                                             X = data.frame(A = df_train$A, df_train[,colnames(W)]),
+                                             family = binomial(),
+                                             obsWeights = NULL,
+                                             newX = data.frame(A = df_train$A, df_train[,colnames(W)])), 
+                                        add_args))$fit
+              } else {
+                sl_Q_train <- SuperLearner(Y = df_train$Y, 
+                                           X = data.frame(A = df_train$A, df_train[,colnames(W)]), 
+                                           family = binomial(), 
+                                           SL.library = or_library,
+                                           cvControl = list(stratifyCV = TRUE, V = 40))
+              }
+              
+              Qn_list[[j]] <- sl_Q_train
+              
+              # Predict on the test set
+              if(length(or_library) == 1){
+                Qn_0_test <- as.numeric(predict(sl_Q_train, newdata = data.frame(A = 0, df_test[,colnames(W)]), family = binomial()))
+                Qn_1_test <- as.numeric(predict(sl_Q_train, newdata = data.frame(A = 1, df_test[,colnames(W)]), family = binomial()))
+              } else {
+                Qn_0_test <- as.numeric(predict(sl_Q_train, newdata = data.frame(A = 0, df_test[,colnames(W)]), onlySL = TRUE)[[1]])
+                Qn_1_test <- as.numeric(predict(sl_Q_train, newdata = data.frame(A = 1, df_test[,colnames(W)]), onlySL = TRUE)[[1]])
+              }
+              
+              Qn_0[j, -indices_train] <- Qn_0_test
+              Qn_1[j, -indices_train] <- Qn_1_test
+              
+              # Train the propensity score model on the training set
+              if(length(ps_library) == 1){
+                sl_g_train <- do.call(ps_library, 
+                                      c(list(Y = df_train$A,
+                                             X = df_train[,colnames(W)], 
+                                             family = binomial(),
+                                             obsWeights = NULL,
+                                             newX = df_train[,colnames(W)]), 
+                                        add_args))$fit
+              } else {
+                sl_g_train <- SuperLearner(Y = df_train$A, 
+                                           X = df_train[,colnames(W)], 
+                                           family = binomial(),
+                                           SL.library = ps_library,
+                                           cvControl = list(stratifyCV = TRUE, V = 40))
+              }
+              
+              gn_list[[j]] <- sl_g_train
+              
+              # Predict on the test set
+              if(length(ps_library) == 1){
+                gn_1_test <- as.numeric(predict(sl_g_train, newdata = df_test[,colnames(W)], family = binomial()))
+                gn_0_test <- 1 - gn_1_test
+              } else {
+                gn_1_test <- as.numeric(predict(sl_g_train, newdata = df_test[,colnames(W)], onlySL = TRUE)[[1]])
+                gn_0_test <- 1 - gn_1_test
+              }
+              
+              gn_0[j, -indices_train] <- gn_0_test
+              gn_1[j, -indices_train] <- gn_1_test
+            }
+            
+            Qn <- list(Qn_0 = Qn_0, Qn_1 = Qn_1)
+            gn <- list(gn_0 = gn_0, gn_1 = gn_1)
+          }
+          
         }else{
         
               folds <- NA
