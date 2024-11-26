@@ -11,6 +11,12 @@ print(args)
 names(args) <- c('CVFolds')
 cv_folds <- as.numeric(args['CVFolds'])
 
+library(ranger)
+library(earth)
+library(tml3)
+library(mlr3extralearners)
+library(tictoc)
+
 n_datasets <- 200
 n_runs <- 100
 
@@ -73,7 +79,7 @@ for (i in 1:n_datasets){
   tic(paste("Iteration", i))
   
   set.seed(i)
-  data <- generate(data)
+  data <- generate_data()
   
   for (j in 1:n_runs){
     results[(i-1)*n_runs+j, ] <- c(i,run_analysis(data))
@@ -84,4 +90,4 @@ for (i in 1:n_datasets){
 }
 
 names(results) <- c("dataset", "AA_estimate", "A0_estimate", "A1_estimate", "AA_se", "A0_se", "A1_se")
-saveRDS(results, "/Users/anton/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/fig_1_results/seeds_45_40folds.rds")
+saveRDS(results, "/insomnia001/home/amh2389/projects/random-seed-effects/fig_2_results/seeds_45_40folds.rds")
