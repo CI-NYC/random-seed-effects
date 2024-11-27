@@ -2,8 +2,9 @@
 #SBATCH --account=msph
 #SBATCH --job-name=SchaderReplication
 #SBATCH --mem=5G
-#SBATCH --time=5:00:00
-#SBATCH --array=1-200
+#SBATCH --time=5:30:00
+#SBATCH --array=8-87,95,97-102,104-113,115-200
+
 
 cvfold=$1
 
