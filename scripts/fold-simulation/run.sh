@@ -3,7 +3,7 @@
 #SBATCH --job-name=SchaderReplication
 #SBATCH --mem=5G
 #SBATCH --time=5:30:00
-#SBATCH --array=8-87,95,97-102,104-113,115-200
+#SBATCH --array=109,110,111,112,146
 
 
 cvfold=$1
