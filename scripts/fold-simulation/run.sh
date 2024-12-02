@@ -2,7 +2,7 @@
 #SBATCH --account=msph
 #SBATCH --job-name=SchaderReplication
 #SBATCH --mem=5G
-#SBATCH --time=5:30:00
+#SBATCH --time=6:00:00
 #SBATCH --array=109,110,111,112,146
 
 
