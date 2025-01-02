@@ -6,12 +6,14 @@ library(scales)
 
 result_dir <- "~/Library/CloudStorage/OneDrive-ColumbiaUniversityIrvingMedicalCenter/Q3_2024/random-seed-effects/scripts/fold-simulation/results/raw"
 
+# aggregating results files for 2 folds
 results_2 <- as.data.frame(do.call(rbind, lapply(1:200, function(i) {
   result <- readRDS(file.path(result_dir, paste0("schader_2_", i, ".rds")))
   estimate_se_list <- lapply(result, function(x) c(2, i, x$psis, x$ses))
   df <- do.call(rbind, estimate_se_list)
 })))
 
+# aggregating results files for 40 folds
 results_40 <- as.data.frame(do.call(rbind, lapply(1:200, function(i) {
   result <- readRDS(file.path(result_dir, paste0("schader_40_", i, ".rds")))
   estimate_se_list <- lapply(result, function(x) c(40, i, x$psis, x$ses))
@@ -22,9 +24,11 @@ results <- rbind(results_2, results_40)
 
 names(results) <- c("cv_folds","dataset","AA_estimate","A0_estimate","A1_estimate","AA_se","A0_se","A1_se")
 
+# calculating ATE
 results <- results |>
   mutate(ATE = A1_estimate - A0_estimate)
 
+# sorting
 dataset_means <- results |>
   group_by(cv_folds, dataset) |>
   summarise(mean_ATE = mean(ATE)) |>
@@ -39,7 +43,8 @@ p2 <- ggplot(results |> filter(cv_folds == 2), aes(x=rank,y=ATE,group=rank)) +
   ylim(-0.1, 0.35) +
   ggtitle("Cross-fit folds: 2") +
   xlab("Dataset") +
-  geom_hline(yintercept = 0, linetype = "dashed") +
+  ylab("Within-dataset ATE") +
+  # geom_hline(yintercept = 0.09790345, linetype = "dashed") +
   theme_light()
 
 p40 <- ggplot(results |> filter(cv_folds == 40), aes(x=rank,y=ATE,group=rank)) +
@@ -47,7 +52,8 @@ p40 <- ggplot(results |> filter(cv_folds == 40), aes(x=rank,y=ATE,group=rank)) +
   ylim(-0.1, 0.35) +
   ggtitle("Cross-fit folds: 40") +
   xlab("Dataset") +
-  geom_hline(yintercept = 0, linetype = "dashed") +
+  ylab("Within-dataset ATE") +
+  # geom_hline(yintercept = 0.09790345, linetype = "dashed") +
   theme_light()
 
 plot <- grid.arrange(p2, p40, ncol = 2)
